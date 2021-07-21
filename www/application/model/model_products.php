@@ -1,41 +1,24 @@
 <?php
-require_once("connection_settings.php");
 
-class ModelProducts extends Model
-{
+require_once("Database.php");
 
-    private static $instance;
+class ModelProducts extends Model {
 
-    private function __construct()
-    {
-        try {
-            //  $this->pdo = new PDO(DNS, USER, PASSWD, OPT);
-        } catch (Exception $ex) {
-            echo 'Caught exception: ', $ex->getMessage(), "\n";
-        }
+    public function __construct() {
+        parent::__construct();
     }
 
-    private function __clone()
-    {
+    public function range_of_products($start_id = 0, $how_many = 0) {
+        $data = $this->db->range_of_products($start_id, $how_many);
+        echo "<pre>";
+        print_r($data);
+        echo "</pre>";
+        return $data;
     }
 
-    private function __wakeup()
-    {
+    public function count_products() {
+        $count = $this->db->count_products();
+        return $count;
     }
 
-    public static function get_instance()
-    {
-        if (self::$instance === null) {
-            self::$instance = new self;
-        }
-        return self::$instance;
-    }
-
-    public function get_data()
-    {
-        $data = $this->pdo->query("SELECT * FROM products")->fetchAll('PDO::FETCH_UNIQUE');
-        return;
-    }
 }
-
-?>

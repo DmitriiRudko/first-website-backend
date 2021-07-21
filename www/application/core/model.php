@@ -1,13 +1,9 @@
 <?php
 
-class Model
-{
-    protected $pdo;
+class Model {
+    protected $db;
 
-    public function get_data()
-    {
-
+    protected function __construct() {
+        $this->db = Database::get_instance();
     }
 }
-
-?>
