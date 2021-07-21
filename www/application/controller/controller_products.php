@@ -1,6 +1,6 @@
 <?php
 
-require_once("../model/model_products.php");
+require_once(dirname(__FILE__) . "/../model/model_products.php");
 
 class ControllerProducts extends Controller
 {
@@ -12,10 +12,9 @@ class ControllerProducts extends Controller
 
     public function action_show_products()
     {
-        $data = $this->model->get_data();
+        $this->model->get_data();
         $this->view->generate("products_view.php", "template_view.php", $data);
     }
-
 }
 
 ?>

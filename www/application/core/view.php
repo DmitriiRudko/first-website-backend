@@ -9,7 +9,7 @@ class View
             extract($data);
         }
         */
-
+        //$data = ['1' => ['name' => 'qwe', 'barcode' => '123']];
         include 'application/views/' . $template_view;
     }
 }
