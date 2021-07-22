@@ -37,6 +37,11 @@ class ModelProducts extends Model {
         return $data;
     }
 
+    public function oneProduct($id) {
+        $data = $this->db->oneProduct((int)$id);
+        return $data;
+    }
+
     public function countProducts() {
         $count = $this->db->countProducts();
         return $count;

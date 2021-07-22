@@ -28,14 +28,14 @@ class Database {
         $stm->execute(array(
             'startId' => $startId,
             'howMany' => $howMany,
-            ));
+        ));
 
         $data = $stm->fetchAll();
         return $data;
         //return [1 => ["name" => "qerqer", "barcode" => 123]];
     }
 
-    public function mostCommentedProducts($startId, $howMany){
+    public function mostCommentedProducts($startId, $howMany) {
         $sql = "SELECT *, count(reviews.id) as cnt FROM products 
                 LEFT JOIN reviews ON products.id = reviews.product_id  
                 GROUP BY products.id
@@ -47,6 +47,16 @@ class Database {
         ));
 
         $data = $stm->fetchAll();
+        return $data;
+    }
+
+    public function oneProduct($id) {
+        $sql = "SELECT * FROM products WHERE id = :id";
+        $stm = $this->db->prepare($sql);
+        $stm->execute(array(
+            'id' => $id,
+        ));
+        $data = $stm->fetch();
         return $data;
     }
 
