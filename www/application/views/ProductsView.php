@@ -31,23 +31,23 @@
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <?
                     if ($_GET['sortType'] != "priceLTH") {
-                        $url = '?page=' . $_GET['page'] . '&sortType=priceLTH';
+                        $url = '/Products/showProducts?page=' . $_GET['page'] . '&sortType=priceLTH';
                         echo "<li><a class='dropdown-item' href=" . $url . ">Cheap first</a></li>";
                     }
                     if ($_GET['sortType'] != "priceHTL") {
-                        $url = '?page=' . $_GET['page'] . '&sortType=priceHTL';
+                        $url = '/Products/showProducts?page=' . $_GET['page'] . '&sortType=priceHTL';
                         echo "<li><a class='dropdown-item' href=" . $url . ">Expensive first</a></li>";
                     }
                     if ($_GET['sortType'] != "nameATZ") {
-                        $url = '?page=' . $_GET['page'] . '&sortType=nameATZ';
+                        $url = '/Products/showProducts?page=' . $_GET['page'] . '&sortType=nameATZ';
                         echo "<li><a class='dropdown-item' href=" . $url . ">A-Z</a></li>";
                     }
                     if ($_GET['sortType'] != "nameZTA") {
-                        $url = '?page=' . $_GET['page'] . '&sortType=nameZTA';
+                        $url = '/Products/showProducts?page=' . $_GET['page'] . '&sortType=nameZTA';
                         echo "<li><a class='dropdown-item' href=" . $url . ">Z-A</a></li>";
                     }
                     if ($_GET['sortType'] != "reviews") {
-                        $url = '?page=' . $_GET['page'] . '&sortType=reviews';
+                        $url = '/Products/showProducts?page=' . $_GET['page'] . '&sortType=reviews';
                         echo "<li><a class='dropdown-item' href=" . $url . ">Most reviewed</a></li>";
                     }
                     ?>
