@@ -72,7 +72,7 @@
                                 <p class="card-text"><?= $row['description'] ?></p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <a type="button" href="/oneproduct/showoneproduct?id=<?= $row['id'] ?>"
+                                        <a type="button" href="/OneProduct/showOneProduct?id=<?= $row['id'] ?>"
                                            class="btn btn-sm btn-outline-secondary">Show more</a>
                                     </div>
                                     <small class="text-muted">$<?= $row['price'] ?></small>

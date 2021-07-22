@@ -1,10 +1,11 @@
 <?php
 
+
 class Route {
     public static function start() {
 
-        $controllerName = "products";
-        $actionName = "showproducts";
+        $controllerName = "Products";
+        $actionName = "ShowProducts";
         $route = explode("/", $_SERVER["REQUEST_URI"]);
         $route[2] = explode("?", $route[2])[0];
 
@@ -15,8 +16,10 @@ class Route {
             $actionName = $route[2];
         }
 
-        $controllerFile = "controller" . $controllerName . ".php";
-        $controllerName = "controller" . $controllerName;
+        $controllerFile = "Controller" . $controllerName . ".php";
+        $controllerName = "Controller" . $controllerName;
+
+        echo $controllerFile;
 
         if (file_exists("application/controller/" . $controllerFile)) {
             include "application/controller/" . $controllerFile;
