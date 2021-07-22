@@ -2,7 +2,6 @@
 
 class Controller
 {
-
     protected $model;
     protected $view;
 
@@ -11,9 +10,6 @@ class Controller
         $this->view = new View();
     }
 
-    public function action_index()
-    {
-    }
 }
 
 ?>

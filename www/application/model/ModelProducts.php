@@ -8,16 +8,16 @@ class ModelProducts extends Model {
         parent::__construct();
     }
 
-    public function range_of_products($start_id = 0, $how_many = 0) {
-        $data = $this->db->range_of_products($start_id, $how_many);
+    public function rangeOfProducts($startId = 0, $howMany = 0) {
+        $data = $this->db->rangeOfProducts($startId, $howMany);
         echo "<pre>";
         print_r($data);
         echo "</pre>";
         return $data;
     }
 
-    public function count_products() {
-        $count = $this->db->count_products();
+    public function countProducts() {
+        $count = $this->db->countProducts();
         return $count;
     }
 

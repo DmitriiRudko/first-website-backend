@@ -1,6 +1,6 @@
 <?php
 
-require_once("connection_settings.php");
+require_once("ConnectionSettings.php");
 
 class Database {
     protected $db;
@@ -9,30 +9,32 @@ class Database {
 
     private function __construct() {
         try {
-            $this->db = new PDO(DNS, USER, PASSWD, OPT);
+           // $this->db = new PDO(DNS, USER, PASSWD, OPT);
         } catch (Exception $ex) {
             echo 'Caught exception: ', $ex->getMessage(), "\n";
         }
     }
 
-    public static function get_instance() {
+    public static function getInstance() {
         if (self::$instance === null) {
             self::$instance = new self;
         }
         return self::$instance;
     }
 
-    public function range_of_products($start_id, $how_many) {
-        $stm = $this->db->prepare('SELECT * FROM `products` LIMIT :start_id, :how_many');
-        $stm->execute(array('start_id' => $start_id, 'how_many' => $how_many));
+    public function rangeOfProducts($startId, $howMany) {
+        $stm = $this->db->prepare('SELECT * FROM `products` LIMIT :$startId, :$howMany');
+        $stm->execute(array('start_id' => $startId, 'how_many' => $howMany));
         $data = $stm->fetchAll();
         return $data;
+        //return [1 => ["name" => "qerqer", "barcode" => 123]];
     }
 
-    public function count_products() {
+    public function countProducts() {
         $stm = $this->db->query('SELECT count(*) FROM `products`');
         $amount = $stm->fetchColumn();
         return $amount;
+        //return 1;
     }
 
     private function __clone() {
