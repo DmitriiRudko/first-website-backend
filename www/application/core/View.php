@@ -12,5 +12,3 @@ class View
         include 'application/views/' . $templateView;
     }
 }
-
-?>

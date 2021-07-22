@@ -27,10 +27,8 @@ class Route {
 
         $controller = new $controllerName();
         if (method_exists($controllerName, $actionName)) {
-            $controller->$actionName($_GET);
+            $controller->$actionName();
         }
 
     }
 }
-
-?>

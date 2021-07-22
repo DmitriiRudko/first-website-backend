@@ -1,6 +1,6 @@
 <?php
 
-require_once("ConnectionSettings.php");
+require_once("connection-settings.php");
 
 class Database {
     protected $db;

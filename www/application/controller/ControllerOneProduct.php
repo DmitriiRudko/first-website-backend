@@ -8,8 +8,8 @@ class ControllerOneProduct extends Controller {
         $this->model = new ModelProducts();
     }
 
-    public function showOneProduct($params) {
-        $data = $this->model->oneProduct($params['id']);
+    public function showOneProduct() {
+        $data = $this->model->oneProduct($_GET['id']);
 
         if ($data !== null) {
             $this->view->generate("OneProductView.php", "TemplateView.php", $data);
@@ -18,5 +18,3 @@ class ControllerOneProduct extends Controller {
         }
     }
 }
-
-?>
