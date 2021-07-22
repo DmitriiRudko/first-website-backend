@@ -9,7 +9,7 @@ class Database {
 
     private function __construct() {
         try {
-           // $this->db = new PDO(DNS, USER, PASSWD, OPT);
+            $this->db = new PDO(DNS, USER, PASSWD, OPT);
         } catch (Exception $ex) {
             echo 'Caught exception: ', $ex->getMessage(), "\n";
         }
@@ -23,8 +23,8 @@ class Database {
     }
 
     public function rangeOfProducts($startId, $howMany) {
-        $stm = $this->db->prepare('SELECT * FROM `products` LIMIT :$startId, :$howMany');
-        $stm->execute(array('start_id' => $startId, 'how_many' => $howMany));
+        $stm = $this->db->prepare('SELECT * FROM `products` LIMIT :startId, :howMany');
+        $stm->execute(array('startId' => $startId, 'howMany' => $howMany));
         $data = $stm->fetchAll();
         return $data;
         //return [1 => ["name" => "qerqer", "barcode" => 123]];

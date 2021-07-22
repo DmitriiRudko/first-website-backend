@@ -18,10 +18,6 @@
 <nav aria-label="Page navigation example">
     <?php
     /** @var array $pageInfo */
-    echo "<pre>";
-    print_r($_GET);
-    echo "</pre>";
-
     $plaginationIndices = $pageInfo['indices'];
     $pagesAmount = intdiv($pageInfo['products_amount'], $pageInfo['products_per_page']);
     if ($pageInfo['products_amount'] % $pageInfo['products_per_page']) {
