@@ -1,6 +1,6 @@
 <?php
 
-define(PRODUCTS_PER_PAGE, 2);
+define(PRODUCTS_PER_PAGE, 4);
 define(PAGINATION_INDICES_PER_PAGE, 5);
 
 require_once(dirname(__FILE__) . "/../model/ModelProducts.php");
@@ -11,8 +11,8 @@ class ControllerProducts extends Controller {
         $this->model = new ModelProducts();
     }
 
-    public function showProducts($params = ["page" => 1]) {
-        if (!empty($params) and $params['page'] > 0) {
+    public function showProducts($params = ['page' => 1]) {
+        if ($params['page'] > 0) {
             $productId = ($params['page'] - 1) * PRODUCTS_PER_PAGE;
         } else {
             $productId = 0;
@@ -23,7 +23,7 @@ class ControllerProducts extends Controller {
             $productId = 0;
         }
 
-        $data = $this->model->rangeOfProducts($productId, PRODUCTS_PER_PAGE);
+        $data = $this->model->rangeOfProducts($productId, PRODUCTS_PER_PAGE, $params['sortType']);
 
         $pageInfo = [
             "products_amount" => $amountOfProducts,

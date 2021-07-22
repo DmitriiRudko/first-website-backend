@@ -8,4 +8,9 @@ require_once('application/core/View.php');
 require_once('application/core/Controller.php');
 
 Route::start();
+
+/*        echo "<pre>";
+        print_r($data);
+        echo "</pre>";*/
+
 ?>

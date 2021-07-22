@@ -22,12 +22,32 @@ class Database {
         return self::$instance;
     }
 
-    public function rangeOfProducts($startId, $howMany) {
-        $stm = $this->db->prepare('SELECT * FROM `products` LIMIT :startId, :howMany');
-        $stm->execute(array('startId' => $startId, 'howMany' => $howMany));
+    public function rangeOfProducts($startId, $howMany, $sortKey, $sortDirection) {
+        $sql = "SELECT * FROM products ORDER BY " . $sortKey . " " . $sortDirection . " LIMIT :startId, :howMany";
+        $stm = $this->db->prepare($sql);
+        $stm->execute(array(
+            'startId' => $startId,
+            'howMany' => $howMany,
+            ));
+
         $data = $stm->fetchAll();
         return $data;
         //return [1 => ["name" => "qerqer", "barcode" => 123]];
+    }
+
+    public function mostCommentedProducts($startId, $howMany){
+        $sql = "SELECT *, count(reviews.id) as cnt FROM products 
+                LEFT JOIN reviews ON products.id = reviews.product_id  
+                GROUP BY products.id
+                ORDER BY cnt DESC LIMIT :startId, :howMany";
+        $stm = $this->db->prepare($sql);
+        $stm->execute(array(
+            'startId' => $startId,
+            'howMany' => $howMany,
+        ));
+
+        $data = $stm->fetchAll();
+        return $data;
     }
 
     public function countProducts() {
