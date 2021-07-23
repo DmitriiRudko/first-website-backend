@@ -142,7 +142,6 @@
                         <a class="page-link" href="#">Next</a>
                     </li>
                 <? endif; ?>
-                </li>
             </ul>
         </nav>
     <? endif; ?>

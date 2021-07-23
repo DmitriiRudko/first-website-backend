@@ -29,6 +29,11 @@ class Route {
         if (method_exists($controllerName, $actionName)) {
             $controller->$actionName();
         }
+        else{
+            $controllerName = "Controller404";
+            $controller = new $controllerName;
+            $controller->show404();
+        }
 
     }
 }

@@ -25,14 +25,13 @@ class Database {
     public function rangeOfProducts($startId, $howMany, $sortKey, $sortDirection) {
         $sql = "SELECT * FROM products ORDER BY " . $sortKey . " " . $sortDirection . " LIMIT :startId, :howMany";
         $stm = $this->db->prepare($sql);
-        $stm->execute(array(
+        $stm->execute([
             'startId' => $startId,
             'howMany' => $howMany,
-        ));
+        ]);
 
         $data = $stm->fetchAll();
         return $data;
-        //return [1 => ["name" => "qerqer", "barcode" => 123]];
     }
 
     public function mostCommentedProducts($startId, $howMany) {
@@ -41,10 +40,10 @@ class Database {
                 GROUP BY products.id
                 ORDER BY cnt DESC LIMIT :startId, :howMany";
         $stm = $this->db->prepare($sql);
-        $stm->execute(array(
+        $stm->execute([
             'startId' => $startId,
             'howMany' => $howMany,
-        ));
+        ]);
 
         $data = $stm->fetchAll();
         return $data;
@@ -53,9 +52,9 @@ class Database {
     public function oneProduct($id) {
         $sql = "SELECT * FROM products WHERE id = :id";
         $stm = $this->db->prepare($sql);
-        $stm->execute(array(
+        $stm->execute([
             'id' => $id,
-        ));
+        ]);
         $data = $stm->fetch();
         return $data;
     }
@@ -64,7 +63,6 @@ class Database {
         $stm = $this->db->query('SELECT count(*) FROM `products`');
         $amount = $stm->fetchColumn();
         return $amount;
-        //return 1;
     }
 
     private function __clone() {
