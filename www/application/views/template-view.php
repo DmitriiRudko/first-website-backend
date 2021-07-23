@@ -9,7 +9,7 @@
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Market</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
@@ -22,7 +22,7 @@
                         <a class="nav-link active" aria-current="page" href="/Products/showProducts">Goods</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">New product</a>
+                        <a class="nav-link" href="/AddProduct/newProductPage">New product</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Feedback</a>
@@ -43,7 +43,6 @@
 /** @var string $contentView */
 include 'application/views/' . $contentView;
 ?>
-
 <footer class="text-muted py-5">
     <div class="container">
         <p class="float-end mb-1">

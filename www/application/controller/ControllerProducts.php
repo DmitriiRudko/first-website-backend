@@ -16,7 +16,7 @@ class ControllerProducts extends Controller {
 
     public function showProducts() {
         if ($_GET['page'] > 0) {
-            $productIndex = ($_GET['page'] - 1) * $this::PRODUCTS_PER_PAGE;
+            $productIndex = ($_GET['page'] - 1) * self::PRODUCTS_PER_PAGE;
         } else {
             $productIndex = 0;
         }
@@ -27,12 +27,12 @@ class ControllerProducts extends Controller {
         }
 
         $sortInfo = SortHelper::parseSortType();
-        $data = $this->model->rangeOfProducts($productIndex, $this::PRODUCTS_PER_PAGE, $sortInfo["key"], $sortInfo["direction"]);
+        $data = $this->model->rangeOfProducts($productIndex, self::PRODUCTS_PER_PAGE, $sortInfo["key"], $sortInfo["direction"]);
 
         $pageInfo = [
             "products_amount" => $amountOfProducts,
-            "products_per_page" => $this::PRODUCTS_PER_PAGE,
-            "indices" => $this::PAGINATION_INDICES_PER_PAGE,
+            "products_per_page" => self::PRODUCTS_PER_PAGE,
+            "indices" => self::PAGINATION_INDICES_PER_PAGE,
         ];
 
         $this->view->generate("products-view.php", "template-view.php", $data, $pageInfo);

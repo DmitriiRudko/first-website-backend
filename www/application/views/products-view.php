@@ -1,6 +1,6 @@
 <main>
     <div class="album py-5 bg-light">
-        <div class="container">
+        <div class="container mt-2">
             <div class="dropdown mb-1">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                    data-bs-toggle="dropdown" aria-expanded="false">

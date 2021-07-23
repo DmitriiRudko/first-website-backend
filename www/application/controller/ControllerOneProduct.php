@@ -18,7 +18,7 @@ class ControllerOneProduct extends Controller {
         $data = $this->modelProducts->oneProduct($_GET['id']);
 
         if ($data !== null) {
-            $reviews = $this->modelReviews->getReviews($_GET['id']);
+            $reviews = $this->modelReviews->getReviews($_GET['id'], $moderated = True);
             $data["reviews"] = $reviews;
             $this->view->generate("one-product-view.php", "template-view.php", $data);
         } else {

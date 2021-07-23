@@ -27,9 +27,15 @@ class ModelProducts extends Model {
     }
 
     public function countProducts() {
-        $sql = 'SELECT count(*) FROM `products`';
+        $sql = "SELECT count(*) FROM products";
         $count = $this->db->countProducts($sql);
         return $count;
+    }
+
+    public function newProduct($name, $price, $barcode, $description) {
+        $sql = "INSERT INTO products (`name`, `barcode`, `description`, `price`) 
+                VALUES (:name, :barcode, :description, :price)";
+        $this->db->newProduct($sql, $name, $price, $barcode, $description);
     }
 
 }

@@ -58,13 +58,30 @@ class Database {
         return $amount;
     }
 
-    public function getReviews($sql, $productId) {
+    public function getReviews($sql, $productId, $moderated = null) {
         $stm = $this->db->prepare($sql);
-        $stm->execute([
-            'id' => $productId,
-        ]);
+        if (isset($moderated)) {
+            $stm->execute([
+                'id' => $productId,
+                'moderated' => $moderated,
+            ]);
+        } else {
+            $stm->execute([
+                'id' => $productId,
+            ]);
+        }
         $amount = $stm->fetchAll();
         return $amount;
+    }
+
+    public function newProduct($sql, $name, $price, $barcode, $description) {
+        $stm = $this->db->prepare($sql);
+        $stm->execute([
+            'name' => $name,
+            'price' => $price,
+            'barcode' => $barcode,
+            'description' => $description
+        ]);
     }
 
     private function __clone() {
