@@ -54,8 +54,12 @@
                                 <p class="card-text"><?= $product['description'] ?></p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <a type="button" href="/OneProduct/showOneProduct?id=<?= $product['product_id'] ?>"
+                                        <a type="button"
+                                           href="/OneProduct/showOneProduct?id=<?= $product['product_id'] ?>"
                                            class="btn btn-sm btn-outline-secondary">Show more</a>
+                                        <a type="button"
+                                           href="/AddReview/newReviewPage?id=<?= $product['product_id'] ?>"
+                                           class="btn btn-sm btn-outline-secondary">Feedback</a>
                                     </div>
                                     <small class="text-muted">$<?= $product['price'] ?></small>
                                 </div>

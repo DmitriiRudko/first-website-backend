@@ -19,13 +19,10 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/Products/showProducts">Goods</a>
+                        <a class="nav-link" aria-current="page" href="/Products/showProducts">Goods</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/AddProduct/newProductPage">New product</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Feedback</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Administration</a>
