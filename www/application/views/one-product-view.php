@@ -1,6 +1,6 @@
 <?
 /** @var array $data */
-$product = $data
+$product = $data;
 ?>
 
 <div class="container">
@@ -12,4 +12,10 @@ $product = $data
             <p class="card-text"><small class="text-muted">$<?= $product['price'] ?></small></p>
         </div>
     </div>
+    <? foreach($product['reviews'] as $review): ?>
+        <hr/>
+        <h6><?= $review['user_name']; ?></h6>
+        <?= $review['text']; ?>
+    <? endforeach; ?>
+
 </div>

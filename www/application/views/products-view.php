@@ -54,7 +54,7 @@
                                 <p class="card-text"><?= $product['description'] ?></p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <a type="button" href="/OneProduct/showOneProduct?id=<?= $product['id'] ?>"
+                                        <a type="button" href="/OneProduct/showOneProduct?id=<?= $product['product_id'] ?>"
                                            class="btn btn-sm btn-outline-secondary">Show more</a>
                                     </div>
                                     <small class="text-muted">$<?= $product['price'] ?></small>

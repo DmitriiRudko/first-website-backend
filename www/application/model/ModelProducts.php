@@ -10,9 +10,9 @@ class ModelProducts extends Model {
             $data = $this->db->rangeOfProducts($startId, $howMany, $sql);
 
         } else {
-            $sql = "SELECT *, count(reviews.id) as cnt FROM products 
-                LEFT JOIN reviews ON products.id = reviews.product_id  
-                GROUP BY products.id
+            $sql = "SELECT *, count(reviews.review_id) as cnt FROM products 
+                LEFT JOIN reviews ON products.product_id = reviews.product_id  
+                GROUP BY products.product_id
                 ORDER BY cnt DESC LIMIT :startId, :howMany";
             $data = $this->db->mostCommentedProducts($startId, $howMany, $sql);
 
@@ -21,7 +21,7 @@ class ModelProducts extends Model {
     }
 
     public function oneProduct($id) {
-        $sql = "SELECT * FROM products WHERE id = :id";
+        $sql = "SELECT * FROM products WHERE product_id = :id";
         $data = $this->db->oneProduct((int)$id, $sql);
         return $data;
     }

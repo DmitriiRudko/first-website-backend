@@ -58,6 +58,15 @@ class Database {
         return $amount;
     }
 
+    public function getReviews($sql, $productId) {
+        $stm = $this->db->prepare($sql);
+        $stm->execute([
+            'id' => $productId,
+        ]);
+        $amount = $stm->fetchAll();
+        return $amount;
+    }
+
     private function __clone() {
     }
 
