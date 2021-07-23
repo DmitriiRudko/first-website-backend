@@ -1,6 +1,8 @@
 <?php
 
 require_once(dirname(__FILE__) . "/../model/ModelProducts.php");
+require_once(dirname(__FILE__) . "/../helpers/SortHelper.php");
+
 
 class ControllerProducts extends Controller {
     private const PRODUCTS_PER_PAGE = 4;
@@ -24,7 +26,8 @@ class ControllerProducts extends Controller {
             $productIndex = 0;
         }
 
-        $data = $this->model->rangeOfProducts($productIndex, $this::PRODUCTS_PER_PAGE, $_GET['sortType']);
+        $sortInfo = SortHelper::parseSortType();
+        $data = $this->model->rangeOfProducts($productIndex, $this::PRODUCTS_PER_PAGE, $sortInfo["key"], $sortInfo["direction"]);
 
         $pageInfo = [
             "products_amount" => $amountOfProducts,
@@ -32,6 +35,8 @@ class ControllerProducts extends Controller {
             "indices" => $this::PAGINATION_INDICES_PER_PAGE,
         ];
 
-        $this->view->generate("ProductsView.php", "TemplateView.php", $data, $pageInfo);
+        $this->view->generate("products-view.php", "template-view.php", $data, $pageInfo);
     }
+
+
 }

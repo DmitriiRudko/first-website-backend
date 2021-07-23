@@ -5,49 +5,30 @@
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                    data-bs-toggle="dropdown" aria-expanded="false">
                     <?
-                    switch ($_GET['sortType']) {
-                        case "priceHTL":
-                            echo "Expensive first";
-                            break;
-                        case "priceLTH":
-                            echo "Cheap first";
-                            break;
-                        case "reviews":
-                            echo "Most reviewed";
-                            break;
-                        case "nameATZ":
-                            echo "A-Z";
-                            break;
-                        case "nameZTA":
-                            echo "Z-A";
-                            break;
-                        default:
-                            $_GET['sortType'] = "priceLTH";
-                            echo "Cheap first";
-                    }
+                    $sortInfo = SortHelper::parseSortType();
+                    echo $sortInfo["description"];
                     ?>
                 </a>
-
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <?
-                    if ($_GET['sortType'] != "priceLTH") {
-                        $url = '/Products/showProducts?page=' . $_GET['page'] . '&sortType=priceLTH';
+                    if ($_GET['sortType'] != "price-asc") {
+                        $url = '/Products/showProducts?page=' . $_GET['page'] . '&sortType=price-asc';
                         echo "<li><a class='dropdown-item' href=" . $url . ">Cheap first</a></li>";
                     }
-                    if ($_GET['sortType'] != "priceHTL") {
-                        $url = '/Products/showProducts?page=' . $_GET['page'] . '&sortType=priceHTL';
+                    if ($_GET['sortType'] != "price-desc") {
+                        $url = '/Products/showProducts?page=' . $_GET['page'] . '&sortType=price-desc';
                         echo "<li><a class='dropdown-item' href=" . $url . ">Expensive first</a></li>";
                     }
-                    if ($_GET['sortType'] != "nameATZ") {
-                        $url = '/Products/showProducts?page=' . $_GET['page'] . '&sortType=nameATZ';
+                    if ($_GET['sortType'] != "name-asc") {
+                        $url = '/Products/showProducts?page=' . $_GET['page'] . '&sortType=name-asc';
                         echo "<li><a class='dropdown-item' href=" . $url . ">A-Z</a></li>";
                     }
-                    if ($_GET['sortType'] != "nameZTA") {
-                        $url = '/Products/showProducts?page=' . $_GET['page'] . '&sortType=nameZTA';
+                    if ($_GET['sortType'] != "name-desc") {
+                        $url = '/Products/showProducts?page=' . $_GET['page'] . '&sortType=name-desc';
                         echo "<li><a class='dropdown-item' href=" . $url . ">Z-A</a></li>";
                     }
-                    if ($_GET['sortType'] != "reviews") {
-                        $url = '/Products/showProducts?page=' . $_GET['page'] . '&sortType=reviews';
+                    if ($_GET['sortType'] != "reviews-desc") {
+                        $url = '/Products/showProducts?page=' . $_GET['page'] . '&sortType=reviews-desc';
                         echo "<li><a class='dropdown-item' href=" . $url . ">Most reviewed</a></li>";
                     }
                     ?>
@@ -56,10 +37,11 @@
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 <?php
                 /** @var array $data */
-                if (!$data) return;
-                foreach ($data as $row):
+                $products = $data;
+                if (!$products) return;
+                foreach ($products as $product):
                     ?>
-                    <div class="col" >
+                    <div class="col">
                         <div class="card shadow-sm">
                             <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
                                  xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
@@ -68,14 +50,14 @@
                                 <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
                             </svg>
                             <div class="card-body">
-                                <h5 class="card-title"><?= $row['name'] ?></h5>
-                                <p class="card-text"><?= $row['description'] ?></p>
+                                <h5 class="card-title"><?= $product['name'] ?></h5>
+                                <p class="card-text"><?= $product['description'] ?></p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <a type="button" href="/OneProduct/showOneProduct?id=<?= $row['id'] ?>"
+                                        <a type="button" href="/OneProduct/showOneProduct?id=<?= $product['id'] ?>"
                                            class="btn btn-sm btn-outline-secondary">Show more</a>
                                     </div>
-                                    <small class="text-muted">$<?= $row['price'] ?></small>
+                                    <small class="text-muted">$<?= $product['price'] ?></small>
                                 </div>
                             </div>
                         </div>
@@ -94,7 +76,7 @@
         $pagesAmount++;
     }
     $pageNumber = $_GET['page'];
-    if ($pageNumber > $pagesAmount or $pageNumber < 1) {
+    if ($pageNumber > $pagesAmount || $pageNumber < 1) {
         $pageNumber = 1;
     }
 

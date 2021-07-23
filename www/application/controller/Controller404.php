@@ -7,6 +7,6 @@ class Controller404 extends Controller {
     }
 
     public function show404() {
-        $this->view->generate("NotFoundView.php", "TemplateView.php");
+        $this->view->generate("not-found-view.php", "template-view.php");
     }
 }

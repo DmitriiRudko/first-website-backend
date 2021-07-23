@@ -1,6 +1,6 @@
 <?php
 
-require_once("connection-settings.php");
+require_once("connection-settings.php.example");
 
 class Database {
     protected $db;
@@ -22,8 +22,17 @@ class Database {
         return self::$instance;
     }
 
-    public function rangeOfProducts($startId, $howMany, $sortKey, $sortDirection) {
-        $sql = "SELECT * FROM products ORDER BY " . $sortKey . " " . $sortDirection . " LIMIT :startId, :howMany";
+    public function rangeOfProducts($startId, $howMany, $sql) {
+        $stm = $this->db->prepare($sql);
+        $stm->execute([
+            'startId' => $startId,
+            'howMany' => $howMany,
+        ]);
+        $data = $stm->fetchAll();
+        return $data;
+    }
+
+    public function mostCommentedProducts($startId, $howMany, $sql) {
         $stm = $this->db->prepare($sql);
         $stm->execute([
             'startId' => $startId,
@@ -34,23 +43,7 @@ class Database {
         return $data;
     }
 
-    public function mostCommentedProducts($startId, $howMany) {
-        $sql = "SELECT *, count(reviews.id) as cnt FROM products 
-                LEFT JOIN reviews ON products.id = reviews.product_id  
-                GROUP BY products.id
-                ORDER BY cnt DESC LIMIT :startId, :howMany";
-        $stm = $this->db->prepare($sql);
-        $stm->execute([
-            'startId' => $startId,
-            'howMany' => $howMany,
-        ]);
-
-        $data = $stm->fetchAll();
-        return $data;
-    }
-
-    public function oneProduct($id) {
-        $sql = "SELECT * FROM products WHERE id = :id";
+    public function oneProduct($id, $sql) {
         $stm = $this->db->prepare($sql);
         $stm->execute([
             'id' => $id,
@@ -59,8 +52,8 @@ class Database {
         return $data;
     }
 
-    public function countProducts() {
-        $stm = $this->db->query('SELECT count(*) FROM `products`');
+    public function countProducts($sql) {
+        $stm = $this->db->query($sql);
         $amount = $stm->fetchColumn();
         return $amount;
     }

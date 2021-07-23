@@ -59,3 +59,4 @@ www/local/logs/*
 !www/local/logs/.gitkeep
 */js/bundle/*.LICENSE.txt
 yandex_*.html
+connection-settings.php

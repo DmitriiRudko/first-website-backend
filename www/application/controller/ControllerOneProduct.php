@@ -12,9 +12,9 @@ class ControllerOneProduct extends Controller {
         $data = $this->model->oneProduct($_GET['id']);
 
         if ($data !== null) {
-            $this->view->generate("OneProductView.php", "TemplateView.php", $data);
+            $this->view->generate("one-product-view.php", "template-view.php", $data);
         } else {
-            // редирект на 404
+            $this->view->generate("one-product-view.php", "template-view.php");
         }
     }
 }

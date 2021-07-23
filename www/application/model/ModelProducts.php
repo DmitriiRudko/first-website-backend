@@ -4,46 +4,31 @@ require_once("Database.php");
 
 class ModelProducts extends Model {
 
-    public function __construct() {
-        parent::__construct();
-    }
+    public function rangeOfProducts($startId = 0, $howMany = 0, $sortKey = "price", $sortDirection = "desc") {
+        if ($sortKey != "reviews") {
+            $sql = "SELECT * FROM products ORDER BY " . $sortKey . " " . $sortDirection . " LIMIT :startId, :howMany";
+            $data = $this->db->rangeOfProducts($startId, $howMany, $sql);
 
-    public function rangeOfProducts($startId = 0, $howMany = 0, $sortType = null) {
-        switch ($sortType) {
-            case "priceLTH":
-                $key = 'price';
-                $direction = "ASC";
-                break;
-            case "priceHTL":
-                $key = 'price';
-                $direction = "DESC";
-                break;
-            case "nameATZ":
-                $key = 'name';
-                $direction = "ASC";
-                break;
-            case "nameZTA":
-                $key = 'name';
-                $direction = "DESC";
-                break;
-            case "reviews":
-                $data = $this->db->mostCommentedProducts($startId, $howMany);
-                return $data;
-            default:
-                $key = 'price';
-                $direction = "ASC";
+        } else {
+            $sql = "SELECT *, count(reviews.id) as cnt FROM products 
+                LEFT JOIN reviews ON products.id = reviews.product_id  
+                GROUP BY products.id
+                ORDER BY cnt DESC LIMIT :startId, :howMany";
+            $data = $this->db->mostCommentedProducts($startId, $howMany, $sql);
+
         }
-        $data = $this->db->rangeOfProducts($startId, $howMany, $key, $direction);
         return $data;
     }
 
     public function oneProduct($id) {
-        $data = $this->db->oneProduct((int)$id);
+        $sql = "SELECT * FROM products WHERE id = :id";
+        $data = $this->db->oneProduct((int)$id, $sql);
         return $data;
     }
 
     public function countProducts() {
-        $count = $this->db->countProducts();
+        $sql = 'SELECT count(*) FROM `products`';
+        $count = $this->db->countProducts($sql);
         return $count;
     }
 
