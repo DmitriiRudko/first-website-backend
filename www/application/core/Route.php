@@ -8,9 +8,14 @@ class Route {
 
         if (!empty($route[1])) {
             $controllerName = $route[1];
+        } else {
+            $controllerName = "Products";
         }
+
         if (!empty($route[2])) {
             $actionName = $route[2];
+        } else {
+            $actionName = "showProducts";
         }
 
         $controllerFile = "Controller" . $controllerName . ".php";

@@ -105,7 +105,7 @@
                 <? if ($pageNumber > 1): ?>
                     <li class="page-item">
                         <a class="page-link"
-                           href="<?= "?page=" . ($pageNumber - 1) . '&sortType=' . $_GET['sortType'] ?>">Previous</a>
+                           href="<?= "/Products/showProducts?page=" . ($pageNumber - 1) . '&sortType=' . $_GET['sortType'] ?>">Previous</a>
                     </li>
                 <? else: ?>
                     <li class="page-item disabled">
@@ -115,13 +115,13 @@
                 <? for ($i = $firstIndex; $i <= $lastIndex; $i++): ?>
                     <li class="page-item <?= $i == $pageNumber ? "active" : "" ?> ">
                         <a class="page-link"
-                           href=<?= "?page=" . $i . '&sortType=' . $_GET['sortType'] ?>> <?= $i ?> </a>
+                           href=<?= "/Products/showProducts?page=" . $i . '&sortType=' . $_GET['sortType'] ?>> <?= $i ?> </a>
                     </li>
                 <? endfor; ?>
                 <? if ($pageNumber < $pagesAmount): ?>
                     <li class="page-item">
                         <a class="page-link"
-                           href="<?= "?page=" . ($pageNumber + 1) . '&sortType=' . $_GET['sortType'] ?>">Next</a>
+                           href="<?= "/Products/showProducts?page=" . ($pageNumber + 1) . '&sortType=' . $_GET['sortType'] ?>">Next</a>
                     </li>
                 <? else: ?>
                     <li class="page-item disabled">

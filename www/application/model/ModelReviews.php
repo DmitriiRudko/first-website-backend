@@ -14,4 +14,10 @@ class ModelReviews extends Model {
         }
         return $data;
     }
+
+    public function addReview($productId, $username, $reviewText) {
+        $sql = "INSERT INTO reviews (product_id, user_name, text)  
+            VALUES (:productId, :userName, :text)";
+        $this->db->addReview($sql, $productId, $username, $reviewText);
+    }
 }

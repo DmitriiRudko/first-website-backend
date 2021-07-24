@@ -12,6 +12,7 @@ $notValid = $data;
                 <textarea class="form-control" id="floatingTextarea2" name="reviewText" required></textarea>
                 <label for="floatingTextarea2">Review text</label>
             </div>
+            <input type="hidden" name="id" value="<?= $_GET['id']; ?>">
             <div class="col-12">
                 <button class="btn btn-primary" type="submit">Submit form</button>
             </div>

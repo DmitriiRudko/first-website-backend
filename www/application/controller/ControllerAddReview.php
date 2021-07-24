@@ -19,11 +19,10 @@ class ControllerAddReview extends Controller {
     }
 
     public function addReview() {
-        if (!preg_match('/[0-9]/', $_POST['id'])) {
-            if ($this->modelProducts->oneProduct($_POST['id'])){
-                //$this->modelReviews-> //НАПИСАТЬ ЗАПРОС К БД НА ДОБАВЛЕНИЕ ОТЗЫВА
-            }
+        if ($this->modelProducts->oneProduct((int)$_POST['id'])) {
+            $this->modelReviews->addReview($_POST['id'], $_POST['username'], $_POST['reviewText']);
+            $product = $this->modelProducts->oneProduct((int)$_POST['id']);
+            $this->view->generate("one-product-view.php", "template-view.php", $product);
         }
-        $this->view->generate("add-review-view.php", "template-view.php");
     }
 }

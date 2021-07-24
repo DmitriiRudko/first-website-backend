@@ -84,6 +84,15 @@ class Database {
         ]);
     }
 
+    public function addReview($sql, $productId, $username, $reviewText) {
+        $stm = $this->db->prepare($sql);
+        $stm->execute([
+            'productId' => $productId,
+            'userName' => $username,
+            'text' => $reviewText,
+        ]);
+    }
+
     private function __clone() {
     }
 
