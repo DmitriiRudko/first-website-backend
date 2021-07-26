@@ -10,7 +10,6 @@ use Application\Model\ModelProducts;
 class Controller404 extends Controller {
     public function __construct() {
         parent::__construct();
-        $this->model = new ModelProducts();
     }
 
     public function show404() {

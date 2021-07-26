@@ -9,10 +9,6 @@ require_once(dirname(__FILE__) . "/../controller/ControllerOneProduct.php");
 require_once(dirname(__FILE__) . "/../controller/ControllerProducts.php");
 
 use Application\Controller\Controller404;
-use Application\Controller\ControllerAddProduct;
-use Application\Controller\ControllerAddReview;
-use Application\Controller\ControllerAdmin;
-use Application\Controller\ControllerOneProduct;
 use Application\Controller\ControllerProducts;
 
 class Route {

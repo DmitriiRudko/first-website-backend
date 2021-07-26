@@ -8,6 +8,8 @@ use Application\Core\Controller;
 use Application\Model\ModelProducts;
 
 class ControllerAddProduct extends Controller {
+    private $modelProducts;
+
     private const NAME_MAX_LEN = 30;
 
     private const BARCODE_LEN = 10;
@@ -18,7 +20,7 @@ class ControllerAddProduct extends Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->model = new ModelProducts();
+        $this->modelProducts = new ModelProducts();
     }
 
     public function newProductPage() {
@@ -49,7 +51,7 @@ class ControllerAddProduct extends Controller {
 
         if (empty($notValid)) {
             extract($_POST);
-            $this->model->newProduct(htmlspecialchars($name), htmlspecialchars($price), htmlspecialchars($barcode), htmlspecialchars($description));
+            $this->modelProducts->newProduct(htmlspecialchars($name), htmlspecialchars($price), htmlspecialchars($barcode), htmlspecialchars($description));
         } else {
             $notValid += $_POST;
         }
