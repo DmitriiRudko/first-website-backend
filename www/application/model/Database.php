@@ -58,20 +58,22 @@ class Database {
         return $amount;
     }
 
-    public function getReviews($sql, $productId, $moderated = null) {
+    public function getProductReviews($sql, $productId) {
         $stm = $this->db->prepare($sql);
-        if (isset($moderated)) {
-            $stm->execute([
-                'id' => $productId,
-                'moderated' => $moderated,
-            ]);
-        } else {
-            $stm->execute([
-                'id' => $productId,
-            ]);
-        }
-        $amount = $stm->fetchAll();
-        return $amount;
+        $stm->execute([
+            'id' => $productId,
+        ]);
+        $reviews = $stm->fetchAll();
+        return $reviews;
+    }
+
+    public function getNotPublishedReviews($sql, $limit) {
+        $stm = $this->db->prepare($sql);
+        $stm->execute([
+            'limit' => $limit,
+        ]);
+        $reviews = $stm->fetchAll();
+        return $reviews;
     }
 
     public function newProduct($sql, $name, $price, $barcode, $description) {

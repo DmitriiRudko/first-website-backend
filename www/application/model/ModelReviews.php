@@ -3,15 +3,15 @@
 require_once("Database.php");
 
 class ModelReviews extends Model {
-    public function getReviews($productId, $moderated = null) {
+    public function getProductReviews($productId) {
         $sql = "SELECT * FROM reviews WHERE product_id = :id";
-        if(isset($moderated))
-        {
-            $sql .= " and moderated = :moderated";
-            $data = $this->db->getReviews($sql, $productId, $moderated);
-        } else{
-            $data = $this->db->getReviews($sql, $productId);
-        }
+        $data = $this->db->getProductReviews($sql, $productId);
+        return $data;
+    }
+
+    public function getNotPublishedReviews($limit) {
+        $sql = "SELECT * FROM reviews WHERE moderated = 0 LIMIT 0, :limit";
+        $data = $this->db->getNotPublishedReviews($sql, $limit);
         return $data;
     }
 
