@@ -11,7 +11,7 @@ class ModelProducts extends Model {
 
         } else {
             $sql = "SELECT *, count(reviews.review_id) as cnt FROM products 
-                LEFT JOIN reviews ON products.product_id = reviews.product_id  
+                LEFT JOIN reviews ON products.product_id = reviews.product_id
                 GROUP BY products.product_id
                 ORDER BY cnt DESC LIMIT :startId, :howMany";
             $data = $this->db->mostCommentedProducts($startId, $howMany, $sql);
@@ -36,6 +36,18 @@ class ModelProducts extends Model {
         $sql = "INSERT INTO products (`name`, `barcode`, `description`, `price`) 
                 VALUES (:name, :barcode, :description, :price)";
         $this->db->newProduct($sql, $name, $price, $barcode, $description);
+    }
+
+    public function createTable() {
+        $sql = "CREATE TABLE IF NOT EXISTS `products` (
+                `product_id` int(11) NOT NULL AUTO_INCREMENT,
+                `name` longtext COLLATE utf8_unicode_ci,
+                `barcode` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+                `description` longtext COLLATE utf8_unicode_ci,
+                `price` int(11) NOT NULL,
+                PRIMARY KEY (`product_id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;";
+        $this->db->createProductTable($sql);
     }
 
 }

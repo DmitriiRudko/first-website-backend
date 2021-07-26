@@ -14,16 +14,16 @@ $notPublishedReviews = $data;
         </thead>
         <tbody>
         <? foreach ($notPublishedReviews as $review): ?>
-        <tr>
-            <td><?= $review['user_name'] ?></td>
-            <td><?= $review['text'] ?></td>
-            <td>
-                <button type="button" class="btn btn-success">Accept</button>
-                <button type="button" class="btn btn-danger">Decline</button>
-            </td>
-        </tr>
+            <tr>
+                <td><?= $review['user_name'] ?></td>
+                <td><?= $review['text'] ?></td>
+                <td>
+                    <a type="button" href="/Admin/publishReview?id=<?= $review['review_id'] ?>" class="btn btn-success">Accept</a>
+                    <a type="button" href="/Admin/deleteReview?id=<?= $review['review_id'] ?>" class="btn btn-danger">Decline</a>
+                </td>
+            </tr>
         <? endforeach; ?>
         </tbody>
     </table>
-    <button type="button" class="btn btn-primary btn-lg">Crete tables</button>
+    <a type="button" href="/Admin/createTables" class="btn btn-primary btn-lg">Crete tables</a>
 </div>

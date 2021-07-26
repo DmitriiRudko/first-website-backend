@@ -95,6 +95,30 @@ class Database {
         ]);
     }
 
+    public function deleteReview($sql, $id){
+        $stm = $this->db->prepare($sql);
+        $stm->execute([
+            'id' => $id,
+        ]);
+    }
+
+    public function publishReview($sql, $id){
+        $stm = $this->db->prepare($sql);
+        $stm->execute([
+            'id' => $id,
+        ]);
+    }
+
+    public function createProductTable($sql){
+        $stm = $this->db->prepare($sql);
+        $stm->execute();
+    }
+
+    public function createReviewTable($sql){
+        $stm = $this->db->prepare($sql);
+        $stm->execute();
+    }
+
     private function __clone() {
     }
 

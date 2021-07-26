@@ -22,14 +22,24 @@ class ControllerAdmin extends Controller {
     }
 
     public function publishReview() {
+        $this->modelReviews->publishReview((int)$_GET['id']);
 
+        $notPublishedReviews = $this->modelReviews->getNotPublishedReviews(self::REVIEWS_SHOW_LIMIT);
+        $this->view->generate("admin-view.php", "template-view.php", $notPublishedReviews);
     }
 
     public function deleteReview() {
-        if ($this->modelProducts->oneProduct((int)$_POST['id'])) {
-            $this->modelReviews->addReview((int)$_POST['id'], $_POST['username'], $_POST['reviewText']);
-            $product = $this->modelProducts->oneProduct((int)$_POST['id']);
-            $this->view->generate("one-product-view.php", "template-view.php", $product);
-        }
+        $this->modelReviews->deleteReview((int)$_GET['id']);
+
+        $notPublishedReviews = $this->modelReviews->getNotPublishedReviews(self::REVIEWS_SHOW_LIMIT);
+        $this->view->generate("admin-view.php", "template-view.php", $notPublishedReviews);
+    }
+
+    public function createTables() {
+        $this->modelProducts->createTable();
+        $this->modelReviews->createTable();
+
+        $notPublishedReviews = $this->modelReviews->getNotPublishedReviews(self::REVIEWS_SHOW_LIMIT);
+        $this->view->generate("admin-view.php", "template-view.php", $notPublishedReviews);
     }
 }
