@@ -1,7 +1,13 @@
 <?php
 
+namespace Application\Controller;
 require_once(dirname(__FILE__) . "/../model/ModelProducts.php");
 require_once(dirname(__FILE__) . "/../model/ModelReviews.php");
+require_once(dirname(__FILE__) . "/../core/Controller.php");
+
+use Application\Core\Controller;
+use Application\Model\ModelProducts;
+use Application\Model\ModelReviews;
 
 class ControllerAdmin extends Controller {
     private $modelProducts;
@@ -18,28 +24,22 @@ class ControllerAdmin extends Controller {
 
     public function adminPage() {
         $notPublishedReviews = $this->modelReviews->getNotPublishedReviews(self::REVIEWS_SHOW_LIMIT);
-        $this->view->generate("admin-view.php", "template-view.php", $notPublishedReviews);
+        $this->view->generate("admin-view.php", $notPublishedReviews);
     }
 
     public function publishReview() {
-        $this->modelReviews->publishReview((int)$_GET['id']);
-
-        $notPublishedReviews = $this->modelReviews->getNotPublishedReviews(self::REVIEWS_SHOW_LIMIT);
-        $this->view->generate("admin-view.php", "template-view.php", $notPublishedReviews);
+        $this->modelReviews->moderateReview((int)$_GET['id'], 'publish');
+        $this->adminPage();
     }
 
     public function deleteReview() {
-        $this->modelReviews->deleteReview((int)$_GET['id']);
-
-        $notPublishedReviews = $this->modelReviews->getNotPublishedReviews(self::REVIEWS_SHOW_LIMIT);
-        $this->view->generate("admin-view.php", "template-view.php", $notPublishedReviews);
+        $this->modelReviews->moderateReview((int)$_GET['id'], 'delete');
+        $this->adminPage();
     }
 
     public function createTables() {
         $this->modelProducts->createTable();
         $this->modelReviews->createTable();
-
-        $notPublishedReviews = $this->modelReviews->getNotPublishedReviews(self::REVIEWS_SHOW_LIMIT);
-        $this->view->generate("admin-view.php", "template-view.php", $notPublishedReviews);
+        $this->adminPage();
     }
 }

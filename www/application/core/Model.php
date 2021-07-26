@@ -1,5 +1,8 @@
 <?php
 
+namespace Application\Core;
+use Application\Model\Database;
+
 class Model {
     protected $db;
 

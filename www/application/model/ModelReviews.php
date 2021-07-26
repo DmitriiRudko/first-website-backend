@@ -1,34 +1,39 @@
 <?php
 
+namespace Application\Model;
 require_once("Database.php");
+require_once(dirname(__FILE__) . "/../core/Model.php");
+
+use Application\Core\Model;
 
 class ModelReviews extends Model {
     public function getProductReviews($productId) {
         $sql = "SELECT * FROM reviews WHERE product_id = :id and moderated = 1";
-        $data = $this->db->getProductReviews($sql, $productId);
+        $params = [
+            'id' => (int)$productId,
+        ];
+        $data = $this->db->getOne($sql, $params);
         return $data;
     }
 
     public function getNotPublishedReviews($limit) {
         $sql = "SELECT * FROM reviews WHERE moderated = 0 LIMIT 0, :limit";
-        $data = $this->db->getNotPublishedReviews($sql, $limit);
+        $params = [
+            'limit' => $limit,
+        ];
+        $data = $this->db->getMany($sql, $params);
         return $data;
-    }
-
-    public function deleteReview($id) {
-        $sql = "DELETE FROM reviews WHERE review_id = :id";
-        $this->db->deleteReview($sql, $id);
-    }
-
-    public function publishReview($id) {
-        $sql = "UPDATE reviews SET moderated = 1 WHERE review_id = :id";
-        $this->db->publishReview($sql, $id);
     }
 
     public function addReview($productId, $username, $reviewText) {
         $sql = "INSERT INTO reviews (product_id, user_name, text)  
             VALUES (:productId, :userName, :text)";
-        $this->db->addReview($sql, $productId, $username, $reviewText);
+        $params = [
+            'productId' => $productId,
+            'userName' => $username,
+            'text' => $reviewText,
+        ];
+        $this->db->produceStatement($sql, $params);
     }
 
     public function createTable() {
@@ -42,6 +47,21 @@ class ModelReviews extends Model {
                 KEY `fk_reviews_products_idx` (`product_id`),
                 CONSTRAINT `fk_reviews_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
                 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;";
-        $this->db->createReviewTable($sql);
+        $this->db->produceStatement($sql);
+    }
+
+    public function moderateReview($id, $decision) {
+        switch ($decision) {
+            case 'publish':
+                $sql = "UPDATE reviews SET moderated = 1 WHERE review_id = :id";
+                break;
+            case 'delete':
+                $sql = "DELETE FROM reviews WHERE review_id = :id";
+                break;
+        }
+        $params = [
+            'id' => $id,
+        ];
+        $this->db->produceStatement($sql, $params);
     }
 }

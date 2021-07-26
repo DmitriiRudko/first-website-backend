@@ -1,7 +1,13 @@
 <?php
 
+namespace Application\Controller;
 require_once(dirname(__FILE__) . "/../model/ModelProducts.php");
 require_once(dirname(__FILE__) . "/../model/ModelReviews.php");
+require_once(dirname(__FILE__) . "/../core/Controller.php");
+
+use Application\Core\Controller;
+use Application\Model\ModelProducts;
+use Application\Model\ModelReviews;
 
 class ControllerOneProduct extends Controller {
     private $modelProducts;
@@ -19,9 +25,9 @@ class ControllerOneProduct extends Controller {
         if ($data !== null) {
             $reviews = $this->modelReviews->getProductReviews((int)$_GET['id']);
             $data["reviews"] = $reviews;
-            $this->view->generate("one-product-view.php", "template-view.php", $data);
+            $this->view->generate("one-product-view.php", $data);
         } else {
-            $this->view->generate("one-product-view.php", "template-view.php");
+            $this->view->generate("not-found-view.php");
         }
     }
 }

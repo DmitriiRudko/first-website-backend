@@ -1,14 +1,13 @@
 <?php
 
+namespace Application\Core;
+
 class View
 {
-    function generate($contentView, $templateView, $data = null, $pageInfo = null)
+    private $templateView = 'template-view.php';
+
+    function generate($contentView, $data = null, $pageInfo = null)
     {
-        /*
-        if(is_array($data)) {
-            extract($data);
-        }
-        */
-        include 'application/views/' . $templateView;
+        include 'application/views/' . $this->templateView;
     }
 }

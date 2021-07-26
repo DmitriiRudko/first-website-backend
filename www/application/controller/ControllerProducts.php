@@ -1,11 +1,16 @@
 <?php
 
+namespace Application\Controller;
 require_once(dirname(__FILE__) . "/../model/ModelProducts.php");
 require_once(dirname(__FILE__) . "/../helpers/SortHelper.php");
+require_once(dirname(__FILE__) . "/../core/Controller.php");
 
+use Application\Model\ModelProducts;
+use Application\Helpers\SortHelper;
+use Application\Core\Controller;
 
 class ControllerProducts extends Controller {
-    private const PRODUCTS_PER_PAGE = 4;
+    private const PRODUCTS_PER_PAGE = 6;
 
     private const PAGINATION_INDICES_PER_PAGE = 5;
 
@@ -15,11 +20,8 @@ class ControllerProducts extends Controller {
     }
 
     public function showProducts() {
-        if ($_GET['page'] > 0) {
-            $productIndex = ($_GET['page'] - 1) * self::PRODUCTS_PER_PAGE;
-        } else {
-            $productIndex = 0;
-        }
+        $page = (int)$_GET['page'] <= 0 ? 1 : (int)$_GET['page'];
+        $productIndex = ($page - 1) * self::PRODUCTS_PER_PAGE;
 
         $amountOfProducts = $this->model->countProducts();
         if ($productIndex >= $amountOfProducts) {
@@ -35,7 +37,7 @@ class ControllerProducts extends Controller {
             "indices" => self::PAGINATION_INDICES_PER_PAGE,
         ];
 
-        $this->view->generate("products-view.php", "template-view.php", $data, $pageInfo);
+        $this->view->generate("products-view.php", $data, $pageInfo);
     }
 
 

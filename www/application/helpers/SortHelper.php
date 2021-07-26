@@ -1,14 +1,10 @@
 <?php
 
+namespace Application\Helpers;
+
 class SortHelper {
     public static function parseSortType() {
         switch ($_GET["sortType"]) {
-            case "price-asc":
-                return [
-                    "key" => "price",
-                    "direction" => "asc",
-                    "description" => "Cheap first"
-                ];
             case "price-desc":
                 return [
                     "key" => "price",

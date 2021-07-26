@@ -1,6 +1,11 @@
 <?php
 
+namespace Application\Controller;
 require_once(dirname(__FILE__) . "/../model/ModelProducts.php");
+require_once(dirname(__FILE__) . "/../core/Controller.php");
+
+use Application\Core\Controller;
+use Application\Model\ModelProducts;
 
 class ControllerAddProduct extends Controller {
     private const NAME_MAX_LEN = 30;
@@ -17,37 +22,38 @@ class ControllerAddProduct extends Controller {
     }
 
     public function newProductPage() {
-        $this->view->generate("add-product-view.php", "template-view.php");
+        $this->view->generate("add-product-view.php");
     }
 
     public function addProduct() {
         $notValid = [];
-        if (strlen($_POST['name']) > self::NAME_MAX_LEN) {
-            $notValid += ["nameErr" => "Product name is too long"];
+        if (strlen(($_POST['name'])) > self::NAME_MAX_LEN) {
+            $notValid = array_merge($notValid, ["nameErr" => "Product name is too long"]);
         }
-        if (!preg_match('/[0-9]/', $_POST['price'])) {
-            $notValid += ["priceErr" => "Price must contain only digits"];
+
+        if (!is_numeric($_POST['price'])) {
+            $notValid = array_merge($notValid, ["priceErr" => "Price must contain only digits"]);
         }
-        if (intval($_POST['price']) <= 0 || intval($_POST['price']) > self::MAX_PRICE) {
-            $notValid += ["priceErr" => "Wrong price"];
+        if ((int)$_POST['price'] <= 0 || (int)$_POST['price'] > self::MAX_PRICE) {
+            $notValid = array_merge($notValid, ["priceErr" => "Wrong price"]);
         }
-        if (!preg_match('/[0-9]/', $_POST['price'])) {
-            $notValid += ["barcodeErr" => "Barcode must contain only digits"];
+        if (!is_numeric($_POST['barcode'])) {
+            $notValid = array_merge($notValid, ["barcodeErr" => "Barcode must contain only digits"]);
         }
         if (strlen($_POST['barcode']) != self::BARCODE_LEN) {
-            $notValid += ["barcodeErr" => "Barcode must contain ten digits only"];
+            $notValid = array_merge($notValid, ["barcodeErr" => "Barcode must contain ten digits only"]);
         }
         if (strlen($_POST['description']) > self::DESCRIPTION_MAX_LEN) {
-            $notValid += ["descriptionErr" => "Description is too long"];
+            $notValid = array_merge($notValid, ["descriptionErr" => "Description is too long"]);
         }
 
         if (empty($notValid)) {
             extract($_POST);
-            $this->model->newProduct($name, $price, $barcode, $description);
+            $this->model->newProduct(htmlspecialchars($name), htmlspecialchars($price), htmlspecialchars($barcode), htmlspecialchars($description));
         } else {
             $notValid += $_POST;
         }
 
-        $this->view->generate("add-product-view.php", "template-view.php", $notValid);
+        $this->view->generate("add-product-view.php", $notValid);
     }
 }

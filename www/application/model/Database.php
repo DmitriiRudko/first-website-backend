@@ -1,6 +1,10 @@
 <?php
 
-require_once("connection-settings.php.example");
+namespace Application\Model;
+require_once("connection-settings.php");
+
+use Exception, PDO;
+
 
 class Database {
     protected $db;
@@ -22,101 +26,23 @@ class Database {
         return self::$instance;
     }
 
-    public function rangeOfProducts($startId, $howMany, $sql) {
+    public function getOne($sql, $params = []) {
         $stm = $this->db->prepare($sql);
-        $stm->execute([
-            'startId' => $startId,
-            'howMany' => $howMany,
-        ]);
-        $data = $stm->fetchAll();
-        return $data;
-    }
-
-    public function mostCommentedProducts($startId, $howMany, $sql) {
-        $stm = $this->db->prepare($sql);
-        $stm->execute([
-            'startId' => $startId,
-            'howMany' => $howMany,
-        ]);
-
-        $data = $stm->fetchAll();
-        return $data;
-    }
-
-    public function oneProduct($id, $sql) {
-        $stm = $this->db->prepare($sql);
-        $stm->execute([
-            'id' => $id,
-        ]);
+        $stm->execute($params);
         $data = $stm->fetch();
         return $data;
     }
 
-    public function countProducts($sql) {
-        $stm = $this->db->query($sql);
-        $amount = $stm->fetchColumn();
-        return $amount;
+    public function getMany($sql, $params = []) {
+        $stm = $this->db->prepare($sql);
+        $stm->execute($params);
+        $data = $stm->fetchAll();
+        return $data;
     }
 
-    public function getProductReviews($sql, $productId) {
+    public function produceStatement($sql, $params = []) {
         $stm = $this->db->prepare($sql);
-        $stm->execute([
-            'id' => $productId,
-        ]);
-        $reviews = $stm->fetchAll();
-        return $reviews;
-    }
-
-    public function getNotPublishedReviews($sql, $limit) {
-        $stm = $this->db->prepare($sql);
-        $stm->execute([
-            'limit' => $limit,
-        ]);
-        $reviews = $stm->fetchAll();
-        return $reviews;
-    }
-
-    public function newProduct($sql, $name, $price, $barcode, $description) {
-        $stm = $this->db->prepare($sql);
-        $stm->execute([
-            'name' => $name,
-            'price' => $price,
-            'barcode' => $barcode,
-            'description' => $description
-        ]);
-    }
-
-    public function addReview($sql, $productId, $username, $reviewText) {
-        $stm = $this->db->prepare($sql);
-        $stm->execute([
-            'productId' => $productId,
-            'userName' => $username,
-            'text' => $reviewText,
-        ]);
-    }
-
-    public function deleteReview($sql, $id){
-        $stm = $this->db->prepare($sql);
-        $stm->execute([
-            'id' => $id,
-        ]);
-    }
-
-    public function publishReview($sql, $id){
-        $stm = $this->db->prepare($sql);
-        $stm->execute([
-            'id' => $id,
-        ]);
-    }
-
-    public function createProductTable($sql){
-        $stm = $this->db->prepare($sql);
-        $stm->execute();
-    }
-
-    public function createReviewTable($sql){
-        $stm = $this->db->prepare($sql);
-        $stm->execute();
+        $stm->execute($params);
     }
 
     private function __clone() {
